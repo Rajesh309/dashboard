@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+/* GLOBAL CSS */
+.row-flex {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.col-flex {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.max-col-flex {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.viewport {
+  height: 100vh;
+  width: 100vw;
+  padding: 0px !important;
+  flex-direction: column;
+  /* font-family: Roboto; */
+}
