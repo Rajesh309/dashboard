@@ -148,14 +148,14 @@ export const Login = (props) => {
             />
         </div>
         <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 ,display:"flex",flexDirection:"column"}}
             open={openbackdrop}
         >
             <CircularProgress color="inherit" />
             <h5> Signing In...</h5>
         </Backdrop>
-        <Snackbar open={openSnack} autoHideDuration={6000}>
-            <Alert  severity="error" sx={{ width: '100%',zIndex:10000 }}>
+        <Snackbar open={openSnack} autoHideDuration={3000} anchorOrigin = { {vertical: "top", horizontal: "center" }}>
+            <Alert  severity="error" sx={{ width: '100%',zIndex:10020  }}>
                 Not a valid user
             </Alert>
         </Snackbar>

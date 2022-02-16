@@ -1,9 +1,9 @@
-import {Charts} from "./charts";
+import {ChartIterator} from "./chart-iterator";
 import {Dashboard} from "./dashboard";
 import { DateRange } from "./date-range";
 
 export {
-    Charts,
+    ChartIterator,
     Dashboard,
     DateRange
 }

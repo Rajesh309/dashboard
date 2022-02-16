@@ -1,26 +1,22 @@
 import React,{useEffect,useState,useCallback} from "react";
-import {Button,TextField} from '@mui/material';
+import {Button,TextField,Tooltip,Icon} from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import { useDashboardValue } from "../utils/reducer";
+import {useDashboardValue} from "../utils/reducer";
 import {getAllCharts} from "../utils/api-service";
+import "./styles.css";
 
 export const DateRange = () => {
 const [{fetchedDateRange},dispatch] = useDashboardValue();
   const [dateValue, setDateValue] = useState(fetchedDateRange);
-  console.log('dateValue: ', dateValue);
   const endDisabled = () => !dateValue?.startDate;
+
   const handleChange = (newValue,type) => {
-    console.log('newvalue',newValue,"type",type);
     let selectedDate = new Date(newValue);
     let epochTime = selectedDate.getTime();
-    console.log('typeof',typeof epochTime)
     if(type === "start") {
-        // setDateValue({
-        //     startDate : epochTime,
-        //     endDate : null
-        // })
         setDateValue((preValue) => {
             return {
                 startDate : ""+epochTime,
@@ -52,6 +48,10 @@ const [{fetchedDateRange},dispatch] = useDashboardValue();
   }
 
   const handleView = useCallback(async () => {
+    dispatch({
+      type:"SET_CHARTS_LOADING",
+      payload:true
+    });
     let charts = await getAllCharts(dateValue)
     dispatch({
         type : "SET_TABLE_DATA",
@@ -65,6 +65,12 @@ const [{fetchedDateRange},dispatch] = useDashboardValue();
         type : "SET_PIE_DATA",
         payload : charts[2]
     })
+
+    dispatch({
+      type:"SET_CHARTS_LOADING",
+      payload:false
+    });
+
 } ,[dateValue.startDate, dateValue.endDate] )
   
 
@@ -73,7 +79,7 @@ const [{fetchedDateRange},dispatch] = useDashboardValue();
   },[fetchedDateRange])
 
   return (
-    <div style = {{display:"flex",flexShrink : 1,gap:"1rem",margin:"1.5rem"}}>
+    <div id = "date-range-main" >
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label="Start Date"
@@ -101,15 +107,14 @@ const [{fetchedDateRange},dispatch] = useDashboardValue();
       />
     </LocalizationProvider>
 
-    <Button variant = "outlined" style ={{alignSelf:"flex-end",width:"10rem"}} size="medium" onClick={handleView} >View Dashboard</Button>
+    <Button id = "view-button" variant = "outlined" size="medium" onClick={handleView} >View Dashboard</Button>
+
+    <Tooltip title={
+            <>
+            <div>{"Select the date range to view the data within selected range"}</div>
+            <div>{"Click on"} <b>{"View Dashboard"}</b> {"to view the charts"}</div>
+          </>
+          } placement="right-end"><div id = "info-icon"><InfoIcon /></div></Tooltip>
     </div>
   );
 }
-    
-    DateRange.defaultProps = {
-      allowKeyboardControl: false,
-      disabled: false,
-      error: false, //new Date(02-06-2019) Minimum date to display
-      format: "dd/MM/yyyy", // MM(month),dd(date),yyyy(year)
-      size: "small",
-    };

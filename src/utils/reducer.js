@@ -32,6 +32,13 @@ export const reducer = (state,action) => {
                 tableData : action.payload
             }
         }
+
+        case "SET_CHARTS_LOADING" : {
+            return {
+                ...state,
+                chartsLoading : action.payload
+            }
+        }
     }
 }
 export const initialState = {
@@ -45,5 +52,6 @@ export const initialState = {
     },
     barData : [],
     tableData : [],
-    pieData : []
+    pieData : [],
+    chartsLoading : false
 }

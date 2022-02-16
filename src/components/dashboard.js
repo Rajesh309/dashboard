@@ -1,14 +1,15 @@
-import React,{useEffect,useState,useReducer}from "react";
-import {FormControl,FormControlLabel,TextField,Divider, Checkbox, Button,Backdrop,Snackbar,CircularProgress,Alert} from "@mui/material";
+import React,{useEffect,useState}from "react";
+import {Backdrop,CircularProgress} from "@mui/material";
 import {getRange} from "../utils/api-service";
 import {useDashboardValue} from "../utils/reducer";
-import {DateRange,Charts} from "../components";
+import {ChartIterator,DateRange} from "../components";
 import {Logout} from "../access/logout";
+import "./styles.css"
 export const Dashboard = () => {
 
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState(false);
-    const [{fetchedDateRange},dispatch] = useDashboardValue();
+    const [{fetchedDateRange,chartsLoading},dispatch] = useDashboardValue();
 
     const fetchDateRange = async() => {
         setLoading(true);
@@ -35,7 +36,7 @@ export const Dashboard = () => {
     return (
         <>
             <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1,display:"flex",flexDirection:"column" }}
             open={loading}
         >
             <CircularProgress color="inherit" />
@@ -44,15 +45,15 @@ export const Dashboard = () => {
 
         {
             !error && !loading &&(
-                <div style ={{display:"flex",flexDirection:"column",flex:1,gap:"0.8rem"}}>
-                    <div style = {{display:"flex",flexShrink:1,minHeight:"64px",backgroundColor:"", justifyContent:"flex-end",marginRight:"0.8rem"}}>
+                <div id = "dashboard-container">
+                    <div id = "logout-container">
                         <Logout/>
                     </div>
-                    <div style = {{display:"flex",flexShrink:1,minHeight:"64px"}}>
+                    <div id = "date-range-container">
                         <DateRange defaultDate = {fetchedDateRange}/>
                     </div>
-                    <div style = {{display:"flex",flex:10}}>
-                        <Charts/>
+                    <div id = "charts-continer">
+                        {chartsLoading ? <div style={{display:"flex",flex:1,justifyContent:"center",alignItems:"center"}}><CircularProgress /></div> : <ChartIterator />}
                     </div>
                 </div>
             )

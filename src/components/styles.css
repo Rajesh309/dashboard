@@ -1,0 +1,67 @@
+#dashboard-container {
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    gap:0.8rem
+}
+
+#logout-container {
+    display:flex;
+    flex-shrink:1;
+    min-height:64px;
+    justify-content:flex-end;
+    margin-right:0.8rem
+}
+
+#date-range-container {
+    display:flex;
+    flex-shrink:1;
+    min-height:64px
+}
+
+#charts-container {
+    display:flex;
+    flex:10;
+    height:100%;
+    contain:strict;
+    overflow-y:scroll;
+    background-color:"#f2f2f2";
+}
+
+#progress-container {
+    display:flex;
+    flex:1;
+    justify-content:center;
+    align-items:center
+}
+
+#date-range-main {
+    display:flex;
+    flex-shrink : 1;
+    gap:1rem;
+    margin:1.5rem;
+}
+#view-button {
+    align-self:flex-end;
+    width:10rem;
+}
+#info-icon {
+    display:flex;
+    flex:1;
+    align-items:center;
+}
+
+#iterator-main {
+    display:flex;
+    flex:1;
+    justify-content:center;
+    gap:2rem;
+    padding : 1rem 0;
+    flex-wrap:wrap;
+}
+
+#card {
+    display:flex;
+    width:700px;
+    height:700px
+}
